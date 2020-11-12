@@ -22,8 +22,13 @@ class App extends Component {
     foodsCopy.push(theFood)
     // actualizamos el state para lograr una nueva renderización del componente con la nueva película agregada
     console.log("food before adding lettuce:", foodsCopy );
+    //very important the filteredFoodsList is mandatory because we are using it
+    // when we render the list. We are rendering with filteredFoodsList in the 
+    // map. If we don't update the filteredFoodsList the renderization will not
+    // work.
     this.setState({
-      foods: foodsCopy
+      foods: foodsCopy, 
+      filteredFoodsList: foodsCopy
     });
     console.log("food after adding lettuce: ", this.state.foods);
     this.showUnshowForm();
@@ -34,12 +39,12 @@ class App extends Component {
   }
 
   filterFoods = foodName => {
-    const foodsCopy = [...this.state.foods];
+    const foodsFCopy = [...this.state.foods];
     const foodNameList = foodName.toLowerCase();
-    const filteredFoods = foodsCopy.filter(food => {
+    const filteredFoods = foodsFCopy.filter(food => {
       return food.name.toLowerCase().includes(foodNameList);
     });
-    this.setState({ filteredFoodsList: filteredFoods})
+    this.setState({ filteredFoodsList: filteredFoods});
   };
 
   // renderizamos el componente AddNewFood con una prop (addTheFood) que representa al método addFoodHandler */} */}
@@ -48,7 +53,7 @@ class App extends Component {
       <div className="App">   
         
         <input type="submit" value="Add new food" onClick={this.showUnshowForm}/>
-        {this.state.isButtonActive && <AddNewFood addTheFood={() => this.addFoodHandler()}/>}
+        {this.state.isButtonActive && <AddNewFood addTheFood={this.addFoodHandler}/>}
         <Search filterFoods = {this.filterFoods}/> 
         <div>
           {this.state.filteredFoodsList.map((oneFood, index) => 

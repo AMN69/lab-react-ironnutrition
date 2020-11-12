@@ -11,9 +11,11 @@ class AddNewFood extends Component {
     
     // abstraemos los handlers de más arriba por uno sólo
     handleChange = event => {
-        // desestructuramos el name y el value de event.target
+        // desestructuramos el name y el value de event.target. name = name, calories, image, quantity
+        // value = the value (content) of name, calories, image and quantity.
         let { name, value } = event.target
-        // usamos [] para configurar la key del objeto state con el value
+        // usamos [] para configurar la key del objeto state con el value. It's a way to say that [name]
+        // sometimes is name or calories or image or quantity within the state. 
         this.setState({ [name]: value})
     }
 
